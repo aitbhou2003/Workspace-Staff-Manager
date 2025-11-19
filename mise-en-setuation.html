@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mise en situation GenV</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+
+<body class="container mt-5">
+    <div class="border p-5">
+        <h1 class="text-center mb-5">Gestion des Utilisateurs</h1>
+
+        <div name="userForm" class="form-section">
+            <h5>Ajouter / Modifier un utilisateur</h5>
+            <form name="" id="userForm">
+                <div class="mb-3">
+                    <label for="userName" class="form-label">Id</label>
+                    <input type="text" class="form-control" id="userName" placeholder="Entrez l'Id">
+                </div>
+
+                <div class="mb-3">
+                    <label for="userName" class="form-label">Nom</label>
+                    <input type="text" class="form-control" id="userName" placeholder="Entrez le nom" required>
+                </div>
+
+                <div class="mb-3">
+                    <label for="userEmail" class="form-label">Email</label>
+                    <input type="email" class="form-control" id="userEmail" placeholder="Entrez l'email" required>
+                </div>
+
+                <div class="mb-3">
+                    <label for="userAge" class="form-label">Âge</label>
+                    <input type="number" class="form-control" id="userAge" placeholder="Entrez l'âge" min="1" max="150"
+                        required>
+                </div>
+
+                <div class="d-flex gap-2 flex-column">
+                    <button type="submit" class="btn btn-primary" id="submitBtn">Ajouter</button>
+                    <button type="reset" class="btn btn-secondary">Réinitialiser</button>
+                    <button type="button" class="btn btn-outline-danger" id="cancelBtn">Annuler</button>
+                </div>
+            </form>
+        </div>
+
+        <div id="allTable" class="users-section border p-5 m-5">
+            <h5>Liste des utilisateurs</h5>
+            <p id="userCount" class="text-muted">Total : 0 utilisateur(s)</p>
+            <div id="emptyMessage" class="alert alert-info" role="alert">
+                Aucun utilisateur pour le moment. Ajoutez-en un via le formulaire ci-dessus.
+            </div>
+
+
+            <div id="tableContainer">
+                
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal Bootstrap 5 pour les détails -->
+    <div class="modal fade" id="userDetailModal" tabindex="-1" aria-labelledby="userDetailModalLabel"
+        aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="userDetailModalLabel">Détails de l'utilisateur</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <p><strong>Nom :</strong> <span id="modalName"></span></p>
+                    <p><strong>Email :</strong> <span id="modalEmail"></span></p>
+                    <p><strong>Âge :</strong> <span id="modalAge"></span></p>
+                    <p><strong>Date d'ajout :</strong> <span id="modalDate"></span></p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fermer</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="mise.js">
+    </script>
+</body>
+
+</html>
