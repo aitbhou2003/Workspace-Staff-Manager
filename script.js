@@ -1,6 +1,7 @@
+id = 0;
 let staff = [
     {
-        "id" : 1 ,
+        "id": id++,
         "nom": "abdellah bhou",
         "role": "reception",
         "photo": "1.png",
@@ -16,7 +17,7 @@ let staff = [
 
     },
     {
-        'id' : 2,
+        'id': id++,
         "nom": "abderrahim bhou",
         "role": "sécurité",
         "photo": "2.png",
@@ -71,12 +72,12 @@ function renderCarde(employee) {
 document.getElementById('ajouterExperiences').addEventListener('click', (event) => {
     event.preventDefault();
     document.getElementById('experiences').innerHTML += `
-                            <label for="nom">le nom :</label>
-                            <input name="nom" class="py-3 border rounded-md px-2" placeholder="nom de entreprise" type="text">
-                            <label for="dure">dure(moi) :</label>
-                            <input name="dure" class="py-3 border rounded-md px-2" placeholder="dure d experiences" type="number">
-                            <label for="role">le role :</label>
-                            <input name="role" class="py-3 border rounded-md px-2" placeholder="le role" type="text">` ;
+                            <label for="experiencename">le nom :</label>
+                            <input name="experiencename" class="py-3 border rounded-md px-2" placeholder="nom de entreprise" type="text">
+                            <label for="experiencedure">dure(moi) :</label>
+                            <input name="experiencedure" class="py-3 border rounded-md px-2" placeholder="dure d experiences" type="number">
+                            <label for="experiencerole">le role :</label>
+                            <input name="experiencerole" class="py-3 border rounded-md px-2" placeholder="le role" type="text">` ;
 
 })
 
@@ -86,6 +87,8 @@ document.forms["AouterOmployee"].addEventListener("submit", (e) => {
     let form = e.target;
 
     let employee = {
+        id: id++,
+        photo: "1.png",
         nom: form.nom.value,
         role: form.role.value,
         telephone: form.phone.value,
@@ -93,28 +96,48 @@ document.forms["AouterOmployee"].addEventListener("submit", (e) => {
         experiences: []
     }
 
-    for (let i = 0; i < form.name.length; i++) {
-        employee.experiences.push({
-            nom: form.nom[i].value,
-            dure : form.dure[i].value,
-            role : form.role[i].value
+    if (form.experiencename.length) {
+        for (let i = 0; i < form.experiencename.length; i++) {
+            employee.experiences.push({
+                nom: form.experiencename[i].value,
+                dure: form.experiencedure[i].value,
+                role: form.experiencerole[i].value
+            }
+            );
+
         }
-        );
-
+    } else {
+        employee.experiences?.push({
+            nom: form.experiencename?.value,
+            dure: form.experiencedure?.value,
+            role: form.experiencerole?.value
+        });
     }
 
-    let nomRegex = /^[A-Za-z]+ [A-Za-z]+$/ ;
-    let roleRegex = /^[A-Za-z]+ [A-Za-z]+$/;
-    let phoneRegex = /^(06|07)[0-9]{8}$/;
-    let emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
-    
+    // console.log(employee);
 
-    if(nomRegex.test(employee.nom)){
-        document.getElementById('nomError').innerHTML = 'le chmape est vide'
-    }
 
-    ajouterEmployeeToLocalstorage(employee);
-                                                        
+
+    // let nomRegex = /^[A-Za-z]+ [A-Za-z]+$/;
+    // let roleRegex = /^[A-Za-z]+ [A-Za-z]+$/;
+    // let phoneRegex = /^(06|07)[0-9]{8}$/;
+    // let emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+
+
+    // if (!nomRegex.test(employee.nom)) {
+    //     document.getElementById('nomError').innerHTML = 'le chmape est vide'
+    // }
+
+    staff.push(employee);
+    saveToLocalStorage(staff);
+    saveToLocalStorage("unsignedstaff", staff)
+    renderCardes([employee]);
+    console.log(staff);
+
+
+
+
+    document.forms["AouterOmployee"].reset();
 })
 
 
