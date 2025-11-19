@@ -2,14 +2,85 @@
 <html lang="en">
 
 <head>
+    <script src="https://kit.fontawesome.com/f2ac94e557.js" crossorigin="anonymous"></script>
     <link rel="stylesheet" href="style.css">
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
 </head>
 
-<body>
-    test test
+<body class="flex flex-col gap-3">
+    <header class="flex justify-center py-4 bg-gray-400 font-bold text-3xl">
+        <logo>
+            Staff Manager
+        </logo>
+    </header>
+    <section class="grid grid-cols-15 h-full mx-5">
+        <div class="flex flex-col col-span-4 border h-full p-2 gap-3">
+            <button command="show-modal" commandfor="dialog"
+                class="py-3 bg-green-300 w-3/5 mx-auto rounded-md text-sm font-semibold text-gray-900 hover:bg-green-700"><i
+                    class="fa-solid fa-plus"></i>Ajouter un employee</button>
+            <div id="cardes" class="flex flex-col gap-2">
+
+            </div>
+
+
+        </div>
+        <div class="col-span-1 h-full"></div>
+        <div class="col-span-10 border h-full">heloo</div>
+    </section>
+
+
+
+
+    <el-dialog>
+        <dialog id="dialog" aria-labelledby="dialog-title"
+            class="fixed inset-0 size-auto max-h-none max-w-none overflow-y-auto bg-transparent backdrop:bg-transparent">
+            <el-dialog-backdrop
+                class="fixed inset-0 bg-gray-500/75 transition-opacity data-closed:opacity-0 data-enter:duration-300 data-enter:ease-out data-leave:duration-200 data-leave:ease-in"></el-dialog-backdrop>
+
+            <div tabindex="0"
+                class="flex min-h-full items-end justify-center p-4 text-center focus:outline-none sm:items-center sm:p-0">
+                <el-dialog-panel
+                    class="relative transform overflow-hidden rounded-lg bg-white text-left shadow-xl transition-all data-closed:translate-y-4 data-closed:opacity-0 data-enter:duration-300 data-enter:ease-out data-leave:duration-200 data-leave:ease-in sm:my-8 sm:w-full sm:max-w-lg data-closed:sm:translate-y-0 data-closed:sm:scale-95">
+                    <form name="AouterOmployee" class="flex flex-col gap-1 p-4" action="">
+                        <label for="nom">Nom :</label>
+                        <input name="nom" class="py-3 border rounded-md px-2" placeholder="Nome complet" type="text">
+                        <span id="nomError" class="text-red-600 text-xs"></span>
+                        <label for="role">Rôle :</label>
+                        <input name="role" class="py-3 border rounded-md px-2" placeholder="Le rôle" type="text">
+                        <span id="roleError" class="text-red-600 text-xs"></span>
+                        <!-- <label for="">Photo :</label>
+                        <input class="py-3 border rounded-md px-2" type="image" src="" alt=""> -->
+                        <label for="email">Email :</label>
+                        <input name="email" class="py-3 border rounded-md px-2" placeholder="Email" type="email">
+                        <span id="emailError" class="text-red-600 text-xs"></span>
+                        <label for="phone">Telephone :</label>
+                        <input name="phone" class="py-3 border rounded-md px-2" placeholder="Numero de telephone" type="number">
+                        <span id="phoneError" class="text-red-600 text-xs"></span>
+                        <button id="ajouterExperiences"
+                            class="py-3 bg-green-300 w-3/5 mx-auto rounded-md text-sm font-semibold text-gray-900 hover:bg-green-700">Ajouter
+                            une expériences</button>
+                        <div id="experiences" class="flex flex-col "></div>
+                        <div class="flex flex-row justify-end gap-2">
+                            <button class="py-2 px-5 rounded text-white bg-red-500 hover:bg-red-600">Close</button>
+                            <button type="submit"
+                                class="py-2 px-5 rounded text-white bg-orange-500 hover:bg-orange-600">Submit</button>
+                        </div>
+                    </form>
+                </el-dialog-panel>
+            </div>
+        </dialog>
+    </el-dialog>
+
+
+
+
+
+
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindplus/elements@1" type="module"></script>
+    <script src="script.js"></script>
 </body>
 
 </html>
