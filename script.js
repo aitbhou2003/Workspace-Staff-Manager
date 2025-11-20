@@ -39,11 +39,18 @@ let staff = [
     }
 
 ]
+function loadData() {
+    let staff = getDataFromLocalStorageIfExist("unsignedstaff");
+    renderCardes(staff);
+    saveToLocalStorage("unsignedstaff", staff);
+
+}
+
 
 
 function saveToLocalStorage(keyName, dataList) {
-    dataList = JSON.stringify(dataList);
-    localStorage.setItem(keyName, dataList);
+
+    localStorage.setItem(keyName, JSON.stringify(dataList));
 }
 renderCardes(staff);
 function renderCardes(staff) {
@@ -65,18 +72,23 @@ function rederListView(staff) {
 }
 
 function renderCarde(employee) {
-    return `<div class="w-4/5 border mx-auto rounded flex flex-col p-1 gap-2 justify-center">
-                    <img class="mx-auto w-1/5" src="${employee.photo}" alt="">
-                    <div class="mx-auto text-center flex flex-col">
-                        <span>${employee.nom}</span>
-                        <span>${employee.role}</span>
-                        <div class="flex flex-row justify-between gap-2">
-                            <button type="button" command="show-modal" commandfor="dialog-details" id="${employee.id}" class="edite py-2 px-5 rounded text-white bg-red-500 hover:bg-red-600">details</button>
-                            <button id="${employee.id}"
-                                class="py-2 px-5 rounded text-white bg-orange-500 hover:bg-orange-600">edits</button>
-                        </div>
-                    </div>
-                </div>`
+    return `<div class="border rounded flex flex-col p-3 gap-2 items-center bg-white shadow">
+            <img class="w-20 md:w-24" src="${employee.photo}" alt="">
+            <div class="text-center flex flex-col">
+                <span class="font-semibold">${employee.nom}</span>
+                <span class="text-gray-600 text-sm">${employee.role}</span>
+                <div class="flex flex-row justify-center gap-2 mt-2">
+                    <button type="button" command="show-modal"
+                        commandfor="dialog-details" id="${employee.id}"
+                        class="edite py-2 px-4 rounded text-white bg-red-500 hover:bg-red-600">
+                        details
+                    </button>
+                    <button id="${employee.id}" class="py-2 px-4 rounded text-white bg-orange-500 hover:bg-orange-600">
+                        edits
+                    </button>
+                </div>
+            </div>
+        </div>`;
 }
 
 
@@ -84,57 +96,204 @@ document.getElementById('ajouterExperiences').addEventListener('click', (event) 
     event.preventDefault();
     document.getElementById('experiences').innerHTML += `
                             <label for="experiencename">le nom :</label>
-                            <input name="experiencename" class="py-3 border rounded-md px-2" placeholder="nom de entreprise" type="text">
+                            <input id="expNom" name="experiencename" class="py-3 border rounded-md px-2" placeholder="nom de entreprise" type="text">
+                            <span id="expNomError" class="text-red-600 text-xs"></span>
                             <label for="experiencedure">dure(moi) :</label>
-                            <input name="experiencedure" class="py-3 border rounded-md px-2" placeholder="dure d experiences" type="number">
+                            <input id="expDure" name="experiencedure" class="py-3 border rounded-md px-2" placeholder="dure d experiences" type="number">
+                            <span id="expDureError" class="text-red-600 text-xs"></span>
                             <label for="experiencerole">le role :</label>
-                            <input name="experiencerole" class="py-3 border rounded-md px-2" placeholder="le role" type="text">` ;
+                            <input id="expRole" name="experiencerole" class="py-3 border rounded-md px-2" placeholder="le role" type="text">
+                            <span id="expRoleError" class="text-red-600 text-xs"></span>` ;
 
 })
 
+function formValidation() {
+    let nomRegex = /^[A-Za-z]+ [A-Za-z]+$/;
+    let roleRegex = /^[A-Za-z]+ [A-Za-z]+$/;
+    let phoneRegex = /^(06|07)[0-9]{8}$/;
+    let emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+    let expNomRegex = /^[A-Za-z]+ [A-Za-z]+$/;
+    let expDureRegex = /^[1-9]/;
+    let expRoleRegex = /^[A-Za-z]+ [A-Za-z]+$/;
+
+    let nom = document.getElementById("nom");
+    let nomError = document.getElementById('nomError');
+
+    let phone = document.getElementById('phone');
+    let phoneError = document.getElementById('phoneError');
+
+    let email = document.getElementById('email');
+    let emailError = document.getElementById('emailError');
+
+    let expNom = document.getElementById('expNom');
+    let expNomError = document.getElementById('expNomError');
+
+    let expDure = document.getElementById('expDure');
+    let expDureError = document.getElementById('expDureError');
+
+    let expRole = document.getElementById('expRole');
+    let expRoleError = document.getElementById('expRoleError');
+
+
+
+    // nom validation
+    if (nom.value === "") {
+        nom.style.border = "3px red solid"
+        nomError.innerHTML = "le champ est vide"
+        return false;
+
+    } else if (!nomRegex.test(nom.value)) {
+        nom.style.border = "3px red solid";
+        nomError.innerHTML = "nom (prénom + nom)"
+
+    }
+    else {
+        nom.style.border = "3px green solid";
+        nomError.innerHTML = "";
+    }
+
+    // role validation
+
+    if (role.value === "") {
+        role.style.border = "3px red solid"
+        roleError.innerHTML = "le champ est vide"
+        return false;
+    } else if (!roleRegex.test(role.value)) {
+        role.style.border = "3px red solid";
+        roleError.innerHTML = "le role pas valide";
+    }
+    else {
+        role.style.border = "3px green solid";
+        roleError.innerHTML = "";
+    }
+
+    // email validation
+
+    if (email.value === "") {
+        email.style.border = "3px red solid"
+        emailError.innerHTML = "le champ est vide"
+        return false;
+    } else if (!emailRegex.test(email.value)) {
+        email.style.border = "3px red solid";
+        emailError.innerHTML = "l'email pas valide";
+    }
+    else {
+        email.style.border = "3px green solid";
+        emailError.innerHTML = "";
+    }
+    // phone validation
+    if (phone.value === "") {
+        phone.style.border = "3px red solid"
+        phoneError.innerHTML = "le champ est vide"
+        return false;
+    } else if (!phoneRegex.test(phone.value)) {
+        phone.style.border = "3px red solid";
+        phoneError.innerHTML = "phone (06/07 + 8 chiffres)";
+    }
+    else {
+        phone.style.border = "3px green solid";
+        phoneError.innerHTML = "";
+    }
+
+    // experience validation
+    //nom
+    if (expNom.value === "") {
+        expNom.style.border = "3px red solid"
+        expNomError.innerHTML = "le champ est vide"
+        return false;
+    } else if (!expNomRegex.test(expNom.value)) {
+        expNom.style.border = "3px red solid";
+        expNomError.innerHTML = "le nom pas valide";
+    }
+    else {
+        expNom.style.border = "3px green solid";
+        expNomError.innerHTML = "";
+    }
+    //role
+    if (expRole.value === "") {
+        expRole.style.border = "3px red solid"
+        expRoleError.innerHTML = "le champ est vide"
+        return false;
+    }else if (!expRoleRegex.test(expRole.value)) {
+        expRole.style.border = "3px red solid";
+        expNomError.innerHTML = "le nom pas valide";
+    }
+    else {
+        expRole.style.border = "3px green solid";
+        expRoleError.innerHTML = "";
+    }
+    //dure
+    if (expDure.value === "") {
+        expDure.style.border = "3px red solid"
+        expDureError.innerHTML = "le champ est vide"
+        return false;
+    }else if (!expDureRegex.test(expDure.value)) {
+        expDure.style.border = "3px red solid";
+        expDureError.innerHTML = "le nom pas valide";
+    }
+    else {
+        expDure.style.border = "3px green solid";
+        expDureError.innerHTML = "";
+    }
+
+
+    return true
+
+}
+
+
+
+
 document.forms["AjouterOmployee"].addEventListener("submit", (e) => {
     e.preventDefault();
-    let form = e.target;
-
-    let employee = {
-        id: id++,
-        photo: "1.png",
-        nom: form.nom.value,
-        role: form.role.value,
-        telephone: form.phone.value,
-        email: form.email.value,
-        experiences: []
-    }
-
-    if (form.experiencename?.length) {
-        for (let i = 0; i < form.experiencename.length; i++) {
-            employee.experiences.push({
-                nom: form.experiencename[i].value,
-                dure: form.experiencedure[i].value,
-                role: form.experiencerole[i].value
-            }
-            );
-
+    console.log(formValidation());
+    if (formValidation()) {
+        let form = e.target;
+        let employee = {
+            id: id++,
+            photo: "1.png",
+            nom: form.nom.value,
+            role: form.role.value,
+            telephone: form.phone.value,
+            email: form.email.value,
+            experiences: []
         }
-    } else {
-        employee.experiences?.push({
-            nom: form.experiencename?.value,
-            dure: form.experiencedure?.value,
-            role: form.experiencerole?.value
-        });
+
+        if (form.experiencename?.length) {
+            for (let i = 0; i < form.experiencename.length; i++) {
+                employee.experiences.push({
+                    nom: form.experiencename[i].value,
+                    dure: form.experiencedure[i].value,
+                    role: form.experiencerole[i].value
+                }
+                );
+
+            }
+
+
+            console.log(staff);
+        } else {
+            employee.experiences?.push({
+                nom: form.experiencename?.value,
+                dure: form.experiencedure?.value,
+                role: form.experiencerole?.value
+            });
+        }
+        console.log(employee);
+        staff.push(employee);
+        // saveToLocalStorage(staff);
+        // saveToLocalStorage("unsignedstaff", staff)
+        renderCardes([employee]);
+
     }
 
-    formValidation(employee);
 
 
 
 
 
-    staff.push(employee);
-    saveToLocalStorage(staff);
-    saveToLocalStorage("unsignedstaff", staff)
-    renderCardes([employee]);
-    console.log(staff);
+
+
 
 
 
@@ -142,17 +301,7 @@ document.forms["AjouterOmployee"].addEventListener("submit", (e) => {
     document.forms["AjouterOmployee"].reset();
 })
 
-function formValidation(employee) {
-    let nomRegex = /^[A-Za-z]+ [A-Za-z]+$/;
-    let roleRegex = /^[A-Za-z]+ [A-Za-z]+$/;
-    let phoneRegex = /^(06|07)[0-9]{8}$/;
-    let emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
 
-
-    if (!nomRegex.test(employee.nom)) {
-        document.getElementById('nomError').innerHTML = 'le chmape est vide'
-    }
-}
 
 
 
