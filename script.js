@@ -12,6 +12,11 @@ let staff = [
                 "nom": "khdma",
                 "dure": "4",
                 "role": "devlopeure"
+            },
+            {
+                "nom": "makhdmach",
+                "dure": "5",
+                "role": "plombi"
             }
         ]
 
@@ -43,6 +48,12 @@ function saveToLocalStorage(keyName, dataList) {
 renderCardes(staff);
 function renderCardes(staff) {
     document.getElementById('cardes').innerHTML += rederListView(staff);
+    document.querySelectorAll(".edite").forEach(element => {
+        element.addEventListener("click", event => {
+
+            afficheDetailOfCarde(event.target.getAttribute("id"));
+        })
+    })
 }
 
 function rederListView(staff) {
@@ -60,7 +71,7 @@ function renderCarde(employee) {
                         <span>${employee.nom}</span>
                         <span>${employee.role}</span>
                         <div class="flex flex-row justify-between gap-2">
-                            <button id="${employee.id}" class="py-2 px-5 rounded text-white bg-red-500 hover:bg-red-600">details</button>
+                            <button type="button" command="show-modal" commandfor="dialog-details" id="${employee.id}" class="edite py-2 px-5 rounded text-white bg-red-500 hover:bg-red-600">details</button>
                             <button id="${employee.id}"
                                 class="py-2 px-5 rounded text-white bg-orange-500 hover:bg-orange-600">edits</button>
                         </div>
@@ -81,9 +92,8 @@ document.getElementById('ajouterExperiences').addEventListener('click', (event) 
 
 })
 
-document.forms["AouterOmployee"].addEventListener("submit", (e) => {
+document.forms["AjouterOmployee"].addEventListener("submit", (e) => {
     e.preventDefault();
-
     let form = e.target;
 
     let employee = {
@@ -96,7 +106,7 @@ document.forms["AouterOmployee"].addEventListener("submit", (e) => {
         experiences: []
     }
 
-    if (form.experiencename.length) {
+    if (form.experiencename?.length) {
         for (let i = 0; i < form.experiencename.length; i++) {
             employee.experiences.push({
                 nom: form.experiencename[i].value,
@@ -114,19 +124,11 @@ document.forms["AouterOmployee"].addEventListener("submit", (e) => {
         });
     }
 
-    // console.log(employee);
+    formValidation(employee);
 
 
 
-    // let nomRegex = /^[A-Za-z]+ [A-Za-z]+$/;
-    // let roleRegex = /^[A-Za-z]+ [A-Za-z]+$/;
-    // let phoneRegex = /^(06|07)[0-9]{8}$/;
-    // let emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
 
-
-    // if (!nomRegex.test(employee.nom)) {
-    //     document.getElementById('nomError').innerHTML = 'le chmape est vide'
-    // }
 
     staff.push(employee);
     saveToLocalStorage(staff);
@@ -137,7 +139,91 @@ document.forms["AouterOmployee"].addEventListener("submit", (e) => {
 
 
 
-    document.forms["AouterOmployee"].reset();
+    document.forms["AjouterOmployee"].reset();
 })
+
+function formValidation(employee) {
+    let nomRegex = /^[A-Za-z]+ [A-Za-z]+$/;
+    let roleRegex = /^[A-Za-z]+ [A-Za-z]+$/;
+    let phoneRegex = /^(06|07)[0-9]{8}$/;
+    let emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+
+
+    if (!nomRegex.test(employee.nom)) {
+        document.getElementById('nomError').innerHTML = 'le chmape est vide'
+    }
+}
+
+
+
+
+
+
+
+
+
+function afficheDetailOfCarde(id) {
+    let employee = staff.find(employeeT => employeeT.id == id);
+    document.getElementById('dialog-details').innerHTML = `<el-dialog-backdrop
+                class="fixed inset-0 bg-gray-500/75 transition-opacity data-closed:opacity-0 data-enter:duration-300 data-enter:ease-out data-leave:duration-200 data-leave:ease-in"></el-dialog-backdrop>
+
+            <div tabindex="0"
+                class="flex min-h-full items-end justify-center p-4 text-center focus:outline-none sm:items-center sm:p-0">
+                <el-dialog-panel
+                    class="relative transform overflow-hidden rounded-lg bg-white text-left shadow-xl transition-all data-closed:translate-y-4 data-closed:opacity-0 data-enter:duration-300 data-enter:ease-out data-leave:duration-200 data-leave:ease-in sm:my-8 sm:w-full sm:max-w-lg data-closed:sm:translate-y-0 data-closed:sm:scale-95">
+                    <!-- mon contenu -->
+                    <div name="AjouterOmployee" class="flex flex-col gap-1 p-4" action="">
+                        <img class="mx-auto w-32 h-32 rounded-lg object-cover" src="${employee.photo}">
+                        
+                            <div class="space-y-2">
+                                <div class="flex gap-2">
+                                    <span class="w-16 text-gray-600 font-medium">Nom:</span>
+                                    <span>${employee.nom}</span>
+                                </div>
+                                <div class="flex gap-2">
+                                    <span class="w-16 text-gray-600 font-medium">Role:</span>
+                                    <span>${employee.role}</span>
+                                </div>
+                                <div class="flex gap-2">
+                                    <span class="w-16 text-gray-600 font-medium">Phone:</span>
+                                    <span>${employee.telephone}</span>
+                                </div>
+                                <div class="flex gap-2">
+                                    <span class="w-16 text-gray-600 font-medium">Email:</span>
+                                    <span>${employee.email}</span>
+                                </div>
+                                <div class="flex flex-col p-1 gap-1 bg-gray-300 rounded">
+                                    <h4 class="text-lg font-semibold text-gray-800 mb-3">Experiences :</h4>
+                                    <div id="modal-experience" class="flex flex-col gap-1">
+                                        ${renderExperience(employee.experiences)}
+                                    </div>
+                                    
+                                </div>
+                            </div>
+                    </div>
+                </el-dialog-panel>
+            </div>`;
+}
+function renderExperience(experiences) {
+    let experiencesHTML = "";
+    experiences.forEach(experience => {
+        experiencesHTML += `<div class="w-4/5 bg-green-300 rounded mx-auto p-2">
+                                            <div class="flex gap-2">
+                                                <span class="w-16 text-gray-600 font-medium">Nom:</span>
+                                                <span>${experience.nom}</span>
+                                            </div>
+                                            <div class="flex gap-2">
+                                                <span class="w-16 text-gray-600 font-medium">Role:</span>
+                                                <span>${experience.role}</span>
+                                            </div>
+                                            <div class="flex gap-2">
+                                                <span class="w-16 text-gray-600 font-medium">Dure:</span>
+                                                <span>${experience.dure} moi</span>
+                                            </div>
+                                        </div>`;
+    });
+    return experiencesHTML;
+}
+
 
 
