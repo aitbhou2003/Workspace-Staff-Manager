@@ -75,13 +75,6 @@ let staff = [
     }
 
 ]
-function loadData() {
-    let staff = getDataFromLocalStorageIfExist("unsignedstaff");
-    renderCardes(staff);
-    saveToLocalStorage("unsignedstaff", staff);
-
-}
-
 
 
 function saveToLocalStorage(keyName, dataList) {
@@ -90,7 +83,8 @@ function saveToLocalStorage(keyName, dataList) {
 }
 renderCardes(staff);
 function renderCardes(staff) {
-    document.getElementById('cardes').innerHTML += rederListView(staff);
+    let container = document.getElementById('cardes');
+    rederListView(container,staff);
     document.querySelectorAll(".details").forEach(element => {
         element.addEventListener("click", event => {
 
@@ -99,12 +93,11 @@ function renderCardes(staff) {
     })
 }
 
-function rederListView(staff) {
-    let cardList = "";
+function rederListView(container,staff) {
     staff.forEach(employee => {
-        cardList += renderCarde(employee);
+        container.innerHTML += renderCarde(employee);
     });
-    return cardList;
+    
 }
 
 function renderCarde(employee) {
@@ -404,6 +397,18 @@ function renderExperience(experiences) {
     });
     return experiencesHTML;
 }
+
+
+let zones = document.querySelectorAll(".zones");
+let zoneTargeted ;
+zones.forEach(zone => {
+    zone.addEventListener('click',(ev)=>{
+        zoneTargeted = ev.target.getAttribute("id");
+        
+    })
+    
+});
+
 
 
 
