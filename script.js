@@ -3,7 +3,7 @@ let staff = [
     {
         "id": id++,
         "nom": "abdellah bhou",
-        "role": "reception",
+        "role": "Agents de sécurité",
         "photo": "1.png",
         "email": "abdellahbaou@gmail.com",
         "telephone": "0735273782",
@@ -19,13 +19,12 @@ let staff = [
                 "role": "plombi"
             }
         ]
-
     },
     {
         'id': id++,
         "nom": "abderrahim bhou",
-        "role": "sécurité",
-        "photo": "2.png",
+        "role": "Techniciens IT",
+        "photo": "1.png",
         "email": "abderrahimbhou@gmail.com",
         "telephone": "063872037",
         "experiences": [
@@ -35,35 +34,44 @@ let staff = [
                 "role": "securite d lbab"
             }
         ]
-
-    },{
+    },
+    {
         "id": id++,
-        "nom": "abdellah bhou",
-        "role": "reception",
+        "nom": "pedri gonzalez",
+        "role": "Réceptionnistes",
         "photo": "1.png",
-        "email": "abdellahbaou@gmail.com",
-        "telephone": "0735273782",
+        "email": "pedri@gmail.com",
+        "telephone": "0735273783",
         "experiences": [
             {
                 "nom": "khdma",
                 "dure": "4",
                 "role": "devlopeure"
-            },
-            {
-                "nom": "makhdmach",
-                "dure": "5",
-                "role": "plombi"
             }
         ]
-
+    },
+    {
+        "id": id++,
+        "nom": "lamin yamal",
+        "role": "Agents de sécurité",
+        "photo": "1.png",
+        "email": "lamin@gmail.com",
+        "telephone": "0735273784",
+        "experiences": [
+            {
+                "nom": "khdma",
+                "dure": "4",
+                "role": "devlopeure"
+            }
+        ]
     },
     {
         'id': id++,
-        "nom": "abderrahim bhou",
-        "role": "sécurité",
-        "photo": "2.png",
-        "email": "abderrahimbhou@gmail.com",
-        "telephone": "063872037",
+        "nom": "hanz flik",
+        "role": "Manager",
+        "photo": "1.png",
+        "email": "hanz@gmail.com",
+        "telephone": "063872038",
         "experiences": [
             {
                 "nom": "khdmo",
@@ -71,10 +79,84 @@ let staff = [
                 "role": "securite d lbab"
             }
         ]
-
+    },
+    // Nouveaux employés ajoutés
+    {
+        "id": id++,
+        "nom": "marie dupont",
+        "role": "Nettoyage",
+        "photo": "1.png",
+        "email": "marie@gmail.com",
+        "telephone": "0735273785",
+        "experiences": [
+            {
+                "nom": "nettoyage",
+                "dure": "3",
+                "role": "agent de nettoyage"
+            }
+        ]
+    },
+    {
+        "id": id++,
+        "nom": "pierre martin",
+        "role": "Autres rôles",
+        "photo": "1.png",
+        "email": "pierre@gmail.com",
+        "telephone": "0735273786",
+        "experiences": [
+            {
+                "nom": "bureau",
+                "dure": "2",
+                "role": "assistant"
+            }
+        ]
+    },
+    {
+        "id": id++,
+        "nom": "sophie laurent",
+        "role": "Réceptionnistes",
+        "photo": "1.png",
+        "email": "sophie@gmail.com",
+        "telephone": "0735273787",
+        "experiences": [
+            {
+                "nom": "accueil",
+                "dure": "5",
+                "role": "réceptionniste"
+            }
+        ]
+    },
+    {
+        "id": id++,
+        "nom": "alexandre dubois",
+        "role": "Techniciens IT",
+        "photo": "1.png",
+        "email": "alex@gmail.com",
+        "telephone": "0735273788",
+        "experiences": [
+            {
+                "nom": "informatique",
+                "dure": "7",
+                "role": "technicien"
+            }
+        ]
+    },
+    {
+        "id": id++,
+        "nom": "lucie moreau",
+        "role": "Nettoyage",
+        "photo": "1.png",
+        "email": "lucie@gmail.com",
+        "telephone": "0735273789",
+        "experiences": [
+            {
+                "nom": "nettoyage",
+                "dure": "4",
+                "role": "agent de surface"
+            }
+        ]
     }
-
-]
+];
 
 
 function saveToLocalStorage(keyName, dataList) {
@@ -399,15 +481,99 @@ function renderExperience(experiences) {
 }
 
 
+function renderCardesFilters(list) {
+    let container = document.getElementById('cardesFilters');
+    rederListViewInRooms(container,list);
+    
+}
+
+function rederListViewInRooms(container,list) {
+    container.innerHTML = '';
+    list.forEach(employee => {
+        container.innerHTML += renderCardeForAddToRoom(employee);
+    });
+    
+}
+
+function renderCardeForAddToRoom(employee) {
+    return `<div class="flex w-4/5 mx-auto gap-2 border-2 border-red-500 rounded mx-1 row-span-1 px-2">
+                <img class="w-10 h-10 rounded-lg object-cover my-auto" src="1.png">
+                <div class="flex flex-col my-auto">
+                    <span>${employee.nom}</span>
+                    <span class="font-bold">${employee.role}</span>
+                </div>
+            </div>`;
+}
+let reception = staff.filter(ab => ab.role === "Réceptionnistes" || ab.role === "Manager" || ab.role === "Nettoyage");
+
+let server = staff.filter(ab => ab.role === "Techniciens IT" || ab.role === "Manager" || ab.role === "Nettoyage");
+
+let securite = staff.filter(ab => ab.role === " Agents de sécurité" || ab.role === "Manager" || ab.role === "Nettoyage");
+
+let personal = staff.filter(ab => ab.role === "Manager" || ab.role === "Nettoyage" || ab.role === "Autres rôles");
+
+let archive = staff.filter(ab => ab.role === "Manager" || ab.role === "Autres rôles");
+
+let meeting = staff.filter(ab => ab.role === "Manager" || ab.role === "Nettoyage" || ab.role === "Autres rôles");
+
+
+
+function showEmployerModal() {
+    const modal = document.getElementById('employer-filtrer');
+    if (modal) {
+        modal.showModal();
+    }
+}
+
 let zones = document.querySelectorAll(".zones");
+// console.log(zones);
+
 let zoneTargeted ;
 zones.forEach(zone => {
     zone.addEventListener('click',(ev)=>{
+        console.log(zone);
         zoneTargeted = ev.target.getAttribute("id");
+        console.log(zoneTargeted);
+        showEmployerModal();
+
+        switch (zoneTargeted) {
+            case "reception":
+                renderCardesFilters(reception)
+                break;
+            case "server":
+                renderCardesFilters(server)
+                break;
+            case "archive":
+                renderCardesFilters(archive)
+                break;
+            case "personal":
+                renderCardesFilters(personal)
+                break;
+            case "meeting":
+                renderCardesFilters(meeting)
+                break;
+            case "securite":
+                renderCardesFilters(securite)
+                break;
         
+            default:
+                break;
+        }
     })
     
 });
+
+
+
+
+
+
+// console.log(reception);
+// console.log(server);
+// console.log(securite);
+// console.log(personal);
+// console.log(archive);
+// console.log(meeting);
 
 
 
