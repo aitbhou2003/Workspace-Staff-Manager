@@ -32,75 +32,39 @@
 
         </div>
         <div class="col-span-1 h-full"></div>
-        <div
-            class="col-span-10 border h-full grid grid-cols-24 grid-rows-24 gap-2 p-2 rounded border-3 max-h-150 border-orange-500">
-            <!-- reception room -->
-            <div
-                class="col-span-8 row-span-12 border-3 border-green-500 rounded mx-2 h-full grid grid-flow-col grid-rows-5 gap-1 p-1">
-                <button class="row-span-1 bg-red-400 w-4/5 mx-auto rounded border-2 border-red-500 my-1"><span
-                        class="text-white text-2xl">reception room</span><i
-                        class="fa-regular fa-square-plus fa-2xl my-auto" style="color: #00db9a;"></i>
-                </button>
-                <div id="reception-cards" class="flex flex-col gap-1">
-                    
-                </div>
-            </div>
-            <!-- server room -->
-            <div
-                class="col-span-8 row-span-12 border-3 border-green-500 rounded mx-2 h-full grid grid-flow-col grid-rows-5 gap-1 p-1">
-                <button class="row-span-1 bg-red-400 w-4/5 mx-auto rounded border-2 border-red-500 my-1"><span
-                        class="text-white text-2xl">server room</span><i
-                        class="fa-regular fa-square-plus fa-2xl my-auto" style="color: #00db9a;"></i>
-                </button>
-                <div id="server-cardes" class="flex flex-col gap-1">
-                    
-                </div>
-            </div>
-            <!-- securite room -->
-            <div
-                class="col-span-8 row-span-12 border-3 border-green-500 rounded mx-2 h-full grid grid-flow-col grid-rows-5 gap-1 p-1">
-                <button class="row-span-1 bg-red-400 w-4/5 mx-auto rounded border-2 border-red-500 my-1"><span
-                        class="text-white text-2xl">securiter room</span><i
-                        class="fa-regular fa-square-plus fa-2xl my-auto" style="color: #00db9a;"></i>
-                </button>
-                <div id="securite-cardes" class="flex flex-col gap-1">
-                    
-                </div>
-            </div>
-            <!-- personal room -->
-            <div
-                class="col-span-8 row-span-12 border-3 border-green-500 rounded mx-2 h-full grid grid-flow-col grid-rows-5 gap-1 p-1">
-                <button class="row-span-1 bg-red-400 w-4/5 mx-auto rounded border-2 border-red-500 my-1"><span
-                        class="text-white text-2xl">personal room</span><i
-                        class="fa-regular fa-square-plus fa-2xl my-auto" style="color: #00db9a;"></i>
-                </button>
-                <div id="personal-cardes" class="flex flex-col gap-1">
-                    
-                </div>
-            </div>
-            <!-- archive room -->
-            <div
-                class="col-span-8 row-span-12 border-3 border-green-500 rounded mx-2 h-full grid grid-flow-col grid-rows-5 gap-1 p-1">
-                <button class="row-span-1 bg-red-400 w-4/5 mx-auto rounded border-2 border-red-500 my-1"><span
-                        class="text-white text-2xl">archive room</span><i
-                        class="fa-regular fa-square-plus fa-2xl my-auto" style="color: #00db9a;"></i>
-                </button>
-                <div id="archive-cardes" class="flex flex-col gap-1">
-                    
-                </div>
-            </div>
-            <!-- meeting room -->
-            <div
-                class="col-span-8 row-span-12 border-3 border-green-500 rounded mx-2 h-full grid grid-flow-col grid-rows-5 gap-1 p-1">
-                <button class="row-span-1 bg-red-400 w-4/5 mx-auto rounded border-2 border-red-500 my-1"><span
-                        class="text-white text-2xl">meeting room</span><i
-                        class="fa-regular fa-square-plus fa-2xl my-auto" style="color: #00db9a;"></i>
-                </button>
-                <div id="meeting-cardes" class="flex flex-col gap-1">
-                    
-                </div>
-            </div>
-        </div>
+        <!-- Zones Grid Container -->
+       <div class="col-span-10 border h-full grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3 p-3 rounded border-3 max-h-[80vh] overflow-y-auto border-orange-500">
+    <!-- reception room -->
+    <div id="reception"
+        class="zones min-h-[200px] border-3 border-green-500 rounded p-3 text-center flex flex-col gap-1 items-center justify-center">
+        reception
+    </div>
+    <!-- server room -->
+    <div id="server" command="show-modal" commandfor="employer-filtrer"
+        class="zones min-h-[200px] border-3 border-green-500 rounded p-3 text-center flex flex-col gap-1 items-center justify-center">
+        server
+    </div>
+    <!-- securite room -->
+    <div id="securite" command="show-modal" commandfor="employer-filtrer"
+        class="zones min-h-[200px] border-3 border-green-500 rounded p-3 text-center flex flex-col gap-1 items-center justify-center">
+        securite
+    </div>
+    <!-- personal room -->
+    <div id="personal" command="show-modal" commandfor="employer-filtrer"
+        class="zones min-h-[200px] border-3 border-green-500 rounded p-3 text-center flex flex-col gap-1 items-center justify-center">
+        personal
+    </div>
+    <!-- archive room -->
+    <div id="archive" command="show-modal" commandfor="employer-filtrer"
+        class="zones min-h-[200px] border-3 border-green-500 rounded p-3 text-center flex flex-col gap-1 items-center justify-center">
+        archive
+    </div>
+    <!-- meeting room -->
+    <div id="meeting" command="show-modal" commandfor="employer-filtrer"
+        class="zones min-h-[200px] border-3 border-green-500 rounded p-3 text-center flex flex-col gap-1 items-center justify-center">
+        meeting
+    </div>
+</div>
     </section>
 
 
@@ -122,11 +86,19 @@
                             type="text">
                         <span id="nomError" class="text-red-600 text-xs"></span>
                         <label for="role">Rôle :</label>
-                        <input id="role" name="role" class="py-3 border rounded-md px-2" placeholder="Le rôle"
-                            type="text">
+                        <select id="role" name="role" class="py-3 border rounded-md px-2">
+                            <option value="Réceptionnistes">Réceptionnistes</option>
+                            <option value="Manager">Manager</option>
+                            <option value="Nettoyage">Nettoyage</option>
+                            <option value="Techniciens IT">Techniciens IT</option>
+                            <option value="Agents de sécurité">Agents de sécurité</option>
+                            <option value="Autres rôles">Autres rôles</option>
+                        </select>
                         <span id="roleError" class="text-red-600 text-xs"></span>
-                        <!-- <label for="">Photo :</label>
-                        <input class="py-3 border rounded-md px-2" type="image" src="" alt=""> -->
+                        <label for="photo">Photo URL :</label>
+                        <input id="photo" name="photo" class="py-3 border rounded-md px-2" placeholder="Enter image URL"
+                            type="url">
+                        <span id="photoError" class="text-red-600 text-xs"></span>
                         <label for="email">Email :</label>
                         <input id="email" name="email" class="py-3 border rounded-md px-2" placeholder="Email"
                             type="email">
@@ -156,6 +128,28 @@
         <dialog id="dialog-details" aria-labelledby="dialog-title"
             class="fixed inset-0 size-auto max-h-none max-w-none overflow-y-auto bg-transparent backdrop:bg-transparent">
 
+        </dialog>
+    </el-dialog>
+
+    <!-- modale de rooms -->
+
+    <el-dialog>
+        <dialog id="employer-filtrer" aria-labelledby="dialog-title"
+            class="fixed inset-0 size-auto max-h-non    e max-w-none overflow-y-auto bg-transparent backdrop:bg-transparent">
+            <el-dialog-backdrop
+                class="fixed inset-0 bg-gray-500/75 transition-opacity data-closed:opacity-0 data-enter:duration-300 data-enter:ease-out data-leave:duration-200 data-leave:ease-in"></el-dialog-backdrop>
+
+            <div tabindex="0"
+                class="flex min-h-full items-end justify-center p-4 text-center focus:outline-none sm:items-center sm:p-0">
+                <el-dialog-panel
+                    class="relative transform overflow-hidden rounded-lg bg-white text-left shadow-xl transition-all data-closed:translate-y-4 data-closed:opacity-0 data-enter:duration-300 data-enter:ease-out data-leave:duration-200 data-leave:ease-in sm:my-8 sm:w-full sm:max-w-lg data-closed:sm:translate-y-0 data-closed:sm:scale-95">
+                    <!-- mon code ici -->
+                    <div id="cardesFilters" class="flex flex-col gap-1 p-1">
+
+                    </div>
+                    <!-- jusqua -->
+                </el-dialog-panel>
+            </div>
         </dialog>
     </el-dialog>
 
