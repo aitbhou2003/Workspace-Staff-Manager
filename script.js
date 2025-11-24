@@ -30,18 +30,18 @@ function rederListView(container, staff) {
 }
 
 function renderCarde(employee) {
-    return `<div id="${employee.id}" class="border-3 border-green-400 rounded flex flex-col p-2 sm:p-3 gap-1 sm:gap-2 items-center bg-white shadow">
-            <img class="w-16 h-16 sm:w-20 md:w-24 rounded" src="${employee.photo}" alt="">
+    return `<div id="${employee.id}" class="border-3 border-green-400 rounded flex flex-col p-3 gap-2 items-center bg-white shadow">
+            <img class="w-20 md:w-24" src="${employee.photo}" alt="">
             <div class="text-center flex flex-col">
-                <span class="font-semibold text-sm sm:text-base">${employee.nom}</span>
-                <span class="text-gray-600 text-xs sm:text-sm">${employee.role}</span>
-                <div class="flex flex-row justify-center gap-1 sm:gap-2 mt-1 sm:mt-2">
+                <span class="font-semibold">${employee.nom}</span>
+                <span class="text-gray-600 text-sm">${employee.role}</span>
+                <div class="flex flex-row justify-center gap-2 mt-2">
                     <button type="button" command="show-modal"
                         commandfor="dialog-details" id="${employee.id}"
-                        class="hover:animate-bounce details py-1 sm:py-2 px-2 sm:px-4 rounded text-white bg-red-500 hover:bg-red-600 text-xs sm:text-sm">
+                        class="hover:animate-bounce details py-2 px-4 rounded text-white bg-red-500 hover:bg-red-600">
                         details
                     </button>
-                    <button id="${employee.id}" class="hover:animate-bounce py-1 sm:py-2 px-2 sm:px-4 rounded text-white bg-orange-500 hover:bg-orange-600 text-xs sm:text-sm">
+                    <button id="${employee.id}" class="hover:animate-bounce  py-2 px-4 rounded text-white bg-orange-500 hover:bg-orange-600">
                         edits
                     </button>
                 </div>
@@ -107,33 +107,33 @@ function afficheDetailOfCarde(id) {
     document.getElementById('dialog-details').innerHTML = `<el-dialog-backdrop
                 class="fixed inset-0 bg-gray-500/75 transition-opacity data-closed:opacity-0 data-enter:duration-300 data-enter:ease-out data-leave:duration-200 data-leave:ease-in"></el-dialog-backdrop>
             <div tabindex="0"
-                class="flex min-h-full items-end justify-center p-3 sm:p-4 text-center focus:outline-none sm:items-center sm:p-0">
+                class="flex min-h-full items-end justify-center p-4 text-center focus:outline-none sm:items-center sm:p-0">
                 <el-dialog-panel
-                    class="relative transform overflow-hidden rounded-lg bg-white text-left shadow-xl transition-all data-closed:translate-y-4 data-closed:opacity-0 data-enter:duration-300 data-enter:ease-out data-leave:duration-200 data-leave:ease-in sm:my-8 w-full max-w-[95%] sm:max-w-lg mx-auto">
+                    class="relative transform overflow-hidden rounded-lg bg-white text-left shadow-xl transition-all data-closed:translate-y-4 data-closed:opacity-0 data-enter:duration-300 data-enter:ease-out data-leave:duration-200 data-leave:ease-in sm:my-8 sm:w-full sm:max-w-lg data-closed:sm:translate-y-0 data-closed:sm:scale-95">
                     <!-- mon contenu -->
-                    <div name="AjouterOmployee" class="flex flex-col gap-2 p-3 sm:p-4" action="">
-                        <img class="mx-auto w-24 h-24 sm:w-32 sm:h-32 rounded-lg object-cover" src="${employee.photo}">
+                    <div name="AjouterOmployee" class="flex flex-col gap-1 p-4" action="">
+                        <img class="mx-auto w-32 h-32 rounded-lg object-cover" src="${employee.photo}">
                         
-                            <div class="space-y-2 sm:space-y-3">
+                            <div class="space-y-2">
                                 <div class="flex gap-2">
-                                    <span class="w-16 text-gray-600 font-medium text-sm sm:text-base">Nom:</span>
-                                    <span class="text-sm sm:text-base">${employee.nom}</span>
+                                    <span class="w-16 text-gray-600 font-medium">Nom:</span>
+                                    <span>${employee.nom}</span>
                                 </div>
                                 <div class="flex gap-2">
-                                    <span class="w-16 text-gray-600 font-medium text-sm sm:text-base">Role:</span>
-                                    <span class="text-sm sm:text-base">${employee.role}</span>
+                                    <span class="w-16 text-gray-600 font-medium">Role:</span>
+                                    <span>${employee.role}</span>
                                 </div>
                                 <div class="flex gap-2">
-                                    <span class="w-16 text-gray-600 font-medium text-sm sm:text-base">Phone:</span>
-                                    <span class="text-sm sm:text-base">${employee.telephone}</span>
+                                    <span class="w-16 text-gray-600 font-medium">Phone:</span>
+                                    <span>${employee.telephone}</span>
                                 </div>
                                 <div class="flex gap-2">
-                                    <span class="w-16 text-gray-600 font-medium text-sm sm:text-base">Email:</span>
-                                    <span class="text-sm sm:text-base">${employee.email}</span>
+                                    <span class="w-16 text-gray-600 font-medium">Email:</span>
+                                    <span>${employee.email}</span>
                                 </div>
-                                <div class="flex flex-col p-2 sm:p-3 gap-1 sm:gap-2 bg-gray-300 rounded">
-                                    <h4 class="text-base sm:text-lg font-semibold text-gray-800 mb-2 sm:mb-3">Experiences :</h4>
-                                    <div id="modal-experience" class="flex flex-col gap-1 sm:gap-2">
+                                <div class="flex flex-col p-1 gap-1 bg-gray-300 rounded">
+                                    <h4 class="text-lg font-semibold text-gray-800 mb-3">Experiences :</h4>
+                                    <div id="modal-experience" class="flex flex-col gap-1">
                                         ${renderExperience(employee.experiences)}
                                     </div>
                                     
@@ -143,7 +143,6 @@ function afficheDetailOfCarde(id) {
                 </el-dialog-panel>
             </div>`;
 }
-
 
 function renderExperience(experiences) {
     if (!experiences || experiences.length === 0) {
@@ -207,15 +206,15 @@ function rederListViewInRoomsModal(container, list) {
 }
 
 function renderCardeForAddToRoom(employee) {
-    return `<div class="flex w-full sm:w-4/5 mx-auto gap-2 border-2 border-red-500 rounded px-2 py-1 sm:py-2 items-center justify-between">
+    return `<div class="flex w-4/5 mx-auto gap-2 border-2 border-red-500 rounded px-2 items-center justify-between">
         <div class="flex gap-2 items-center">
-            <img class="w-8 h-8 sm:w-10 sm:h-10 rounded-lg object-cover" src="${employee.photo}">
+            <img class="w-10 h-10 rounded-lg object-cover" src="${employee.photo}">
             <div class="flex flex-col">
-                <span class="text-sm sm:text-base">${employee.nom}</span>
-                <span class="font-bold text-xs sm:text-sm">${employee.role}</span>
+                <span>${employee.nom}</span>
+                <span class="font-bold">${employee.role}</span>
             </div>
         </div>
-        <button id="${employee.id}" class="cardes-filtres bg-green-500 text-white px-2 sm:px-3 py-1 rounded-md hover:bg-green-600 text-sm">
+        <button id="${employee.id}" class="cardes-filtres bg-green-500 text-white px-3 py-1 rounded-md hover:bg-green-600 text-sm">
             +
         </button>
     </div>`;
@@ -232,8 +231,12 @@ let zones = document.querySelectorAll(".zones");
 let zoneTargeted;
 
 zones.forEach(zone => {
+    console.log("dfjkl");
+
     zone.addEventListener('click', (ev) => {
         zoneTargeted = ev.target.getAttribute("id");
+        console.log(ev.target);
+
         showEmployerModal();
         switch (zoneTargeted) {
             case "reception":
@@ -304,15 +307,17 @@ function rederListViewForRooms(container, list) {
         container.innerHTML += renderCardeInRoom(employee);
     });
 }
+
 function renderCardeInRoom(employee) {
-    return `<div class="flex w-full sm:w-4/5 mx-auto gap-2 border-2 border-green-500 rounded px-2 py-1 items-center bg-white shadow-sm">
-        <img class="w-6 h-6 sm:w-8 sm:h-8 rounded-full object-cover" src="${employee.photo}" alt="${employee.nom}">
+    return `<div class="flex w-4/5 mx-auto gap-2 border-2 border-green-500 rounded px-2 py-1 items-center bg-white shadow-sm">
+        <img class="w-8 h-8 rounded-full object-cover" src="${employee.photo}" alt="${employee.nom}">
         <div class="flex-1 min-w-0">
-            <p class="text-xs sm:text-sm font-medium text-gray-900 truncate">${employee.nom}</p>
+            <p class="text-sm font-medium text-gray-900 truncate">${employee.nom}</p>
             <p class="text-xs text-gray-500 truncate">${employee.role}</p>
         </div>
     </div>`;
 }
+
 document.addEventListener("DOMContentLoaded", () => {
     console.log("fghjkl;");
 
