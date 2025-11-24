@@ -48,6 +48,54 @@ function renderCarde(employee) {
             </div>
         </div>`;
 }
+function formValidation() {
+    document.querySelectorAll('.text-red-600').forEach(span => span.textContent = '');
+    
+    let isValid = true;
+    let form = document.forms["AjouterOmployee"];
+    
+    // Validation du nom 
+    let nom = form.nom.value.trim();
+    let nomRegex = /^[a-zA-ZÀ-ÿ\s]{2,50}$/;
+    if (!nomRegex.test(nom)) {
+        document.getElementById('nomError').textContent = 'Le nom doit contenir uniquement des lettres (2-50 caractères)';
+        isValid = false;
+    }
+    
+    // Validation du rôle 
+    let role = form.role.value;
+    if (!role) {
+        document.getElementById('roleError').textContent = 'Veuillez sélectionner un rôle';
+        isValid = false;
+    }
+    
+    // Validation de la photo URL
+    let photo = form.photo.value.trim();
+    let urlRegex = /^(https?:\/\/.*\.(?:png|jpg|jpeg|gif|webp))$/i;
+    if (!urlRegex.test(photo)) {
+        document.getElementById('photoError').textContent = 'URL invalide (doit être une image: png, jpg, jpeg, gif, webp)';
+        isValid = false;
+    }
+    
+    // Validation de l'email
+    let email = form.email.value.trim();
+    let emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!emailRegex.test(email)) {
+        document.getElementById('emailError').textContent = 'Format email invalide';
+        isValid = false;
+    }
+    
+    // Validation du téléphone
+    let phone = form.phone.value.trim();
+    let phoneRegex = /^(06|07)[0-9]{8}$/;;
+    if (!phoneRegex.test(phone.replace(/\s/g, ''))) {
+        document.getElementById('phoneError').textContent = 'phone (06/07 + 8 chiffres)';
+        isValid = false;
+    }
+    
+    
+    return isValid;
+}
 
 document.getElementById('ajouterExperiences').addEventListener('click', (event) => {
     event.preventDefault();
@@ -65,6 +113,9 @@ document.getElementById('ajouterExperiences').addEventListener('click', (event) 
 
 document.forms["AjouterOmployee"].addEventListener("submit", (e) => {
     e.preventDefault();
+     if (!formValidation()) {
+        return;
+    }
     let form = e.target;
     let employee = {
         id: id++,
@@ -278,7 +329,7 @@ function attachAddButtonListeners() {
                     return;
                 }
 
-                roomList.push(CardeAllInfo);
+                roomList.push(CardeAllInfo);1
                 localStorage.setItem(zoneTargeted, JSON.stringify(roomList));
 
                 staff = staff.filter(emp => emp.id != crdId);
