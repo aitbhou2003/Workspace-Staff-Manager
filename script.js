@@ -1,4 +1,6 @@
 let staff = [];
+let id = parseInt(localStorage.getItem("dataId")) || 0;
+
 
 function loadFromLocalStorage(keyName) {
     const data = localStorage.getItem(keyName);
@@ -7,6 +9,7 @@ function loadFromLocalStorage(keyName) {
 
 function saveToLocalStorage(keyName, dataList) {
     localStorage.setItem(keyName, JSON.stringify(dataList));
+    localStorage.setItem("dataId", `${id}`);
 }
 
 function renderCardes(staff) {
@@ -27,7 +30,7 @@ function rederListView(container, staff) {
 }
 
 function renderCarde(employee) {
-    return `<div class="border-3 border-green-400 rounded flex flex-col p-3 gap-2 items-center bg-white shadow">
+    return `<div id="${employee.id}" class="border-3 border-green-400 rounded flex flex-col p-3 gap-2 items-center bg-white shadow">
             <img class="w-20 md:w-24" src="${employee.photo}" alt="">
             <div class="text-center flex flex-col">
                 <span class="font-semibold">${employee.nom}</span>
@@ -64,7 +67,7 @@ document.forms["AjouterOmployee"].addEventListener("submit", (e) => {
     e.preventDefault();
     let form = e.target;
     let employee = {
-        id: Date.now(),
+        id: id++,
         photo: form.photo.value,
         nom: form.nom.value,
         role: form.role.value,
@@ -275,6 +278,7 @@ function attachAddButtonListeners() {
                 localStorage.setItem(zoneTargeted, JSON.stringify(roomList));
 
                 staff = staff.filter(emp => emp.id != crdId);
+                document.getElementById(`${crdId}`).remove()
                 saveToLocalStorage("unassignedstaff", staff);
 
                 const roomContainer = document.getElementById(zoneTargeted);
@@ -286,7 +290,6 @@ function attachAddButtonListeners() {
                 if (modal) {
                     modal.close();
                 }
-//test
                 renderCardesFilters(staff);
             }
         });
@@ -312,16 +315,18 @@ function renderCardeInRoom(employee) {
 }
 
 document.addEventListener("DOMContentLoaded", () => {
+    console.log("fghjkl;");
+
     staff = JSON.parse(localStorage.getItem("unassignedstaff")) || [];
     renderCardes(staff);
 
-   
+
     const zoneIds = ["reception", "server", "securite", "personal", "archive", "meeting"];
     zoneIds.forEach(zoneId => {
         const zoneData = JSON.parse(localStorage.getItem(zoneId)) || [];
         const zoneElement = document.getElementById(zoneId);
         if (zoneElement) {
-            zoneElement.innerHTML = ""; 
+            zoneElement.innerHTML = "";
             zoneData.forEach(employee => {
                 zoneElement.innerHTML += renderCardeInRoom(employee);
             });
