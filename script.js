@@ -46,7 +46,6 @@ function renderCarde(employee) {
         </div>`;
 }
 
-// Add event listener for adding experiences
 document.getElementById('ajouterExperiences').addEventListener('click', (event) => {
     event.preventDefault();
     document.getElementById('experiences').innerHTML += `
@@ -262,7 +261,6 @@ function attachAddButtonListeners() {
     cardesFiltres.forEach(carde => {
         carde.addEventListener("click", () => {
             let crdId = carde.getAttribute("id");
-            // Use the global staff array instead of getting from localStorage
             let CardeAllInfo = staff.find(emp => emp.id == crdId);
 
             if (CardeAllInfo) {
@@ -273,27 +271,22 @@ function attachAddButtonListeners() {
                     return;
                 }
 
-                // Add to the room
                 roomList.push(CardeAllInfo);
                 localStorage.setItem(zoneTargeted, JSON.stringify(roomList));
 
-                // Update the staff array and save to localStorage
                 staff = staff.filter(emp => emp.id != crdId);
                 saveToLocalStorage("unassignedstaff", staff);
 
-                // Update the UI
                 const roomContainer = document.getElementById(zoneTargeted);
                 if (roomContainer) {
                     roomContainer.innerHTML += renderCardeInRoom(CardeAllInfo);
                 }
 
-                // Close the modal and re-render the staff list
                 const modal = document.getElementById('employer-filtrer');
                 if (modal) {
                     modal.close();
                 }
-
-                // Re-render the filters to update the list
+//test
                 renderCardesFilters(staff);
             }
         });
@@ -318,19 +311,17 @@ function renderCardeInRoom(employee) {
     </div>`;
 }
 
-// Render cards from localStorage when the page loads
 document.addEventListener("DOMContentLoaded", () => {
-    // Get unassigned staff from localStorage
     staff = JSON.parse(localStorage.getItem("unassignedstaff")) || [];
     renderCardes(staff);
 
-    // Get and render cards for each zone
+   
     const zoneIds = ["reception", "server", "securite", "personal", "archive", "meeting"];
     zoneIds.forEach(zoneId => {
         const zoneData = JSON.parse(localStorage.getItem(zoneId)) || [];
         const zoneElement = document.getElementById(zoneId);
         if (zoneElement) {
-            zoneElement.innerHTML = ""; // Clear existing content
+            zoneElement.innerHTML = ""; 
             zoneData.forEach(employee => {
                 zoneElement.innerHTML += renderCardeInRoom(employee);
             });
